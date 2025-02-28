@@ -69,16 +69,16 @@ def get_similarity_score(list1, list2):
     for i in range(len(list1)):
 
         # Add new values in the first list to the catalogue.
-        if (value_catalogue.get(list1[i]) == None):
-            value_catalogue[list1[i]] = 0
+        if (value_catalogue.get(int(list1[i])) == None):
+            value_catalogue[int(list1[i])] = 0
 
     # Find overlaps in the second list.
     for i in range(len(list2)):
-        if list2[i] in value_catalogue:
-            value_catalogue.update({list2[i]: value_catalogue[list2[i]] + 1})
+        if int(list2[i]) in value_catalogue:
+            value_catalogue.update({int(list2[i]): value_catalogue[int(list2[i])] + 1})
     
     for i in range(len(list1)):
-        sum_similarity += (list1[i] * value_catalogue[list1[i]])
+        sum_similarity += (int(list1[i]) * value_catalogue[int(list1[i])])
 
     return sum_similarity
 
