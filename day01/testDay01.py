@@ -8,9 +8,15 @@ def setup_standard_list():
     return list
 
 # Create a list filled with 0's for testing
-def setup_empty_list():
+def setup_zero_list():
     list = [0, 0, 0, 0, 0]
     return list
+
+def assert_standard_list(list):
+    assert list == [1, 2, 3, 4, 5]
+
+def assert_zero_list(list):
+    assert list == [0, 0, 0, 0, 0]
 
 
 '''    -------BEGIN TESTING-------    '''
@@ -50,7 +56,7 @@ def test_read_file_empty():
 def test_read_file_key():
     # SETUP
     file_name = "day01/01Key.txt"
-    result = setup_empty_list()
+    result = setup_zero_list()
 
     # EXERCISE
     result = read_file(file_name)
@@ -83,28 +89,117 @@ def test_parse_data_one_line():
     # TEARDOWN
     return
 
-# 
-# 
-# 
-# 
-#  
-
+# Test uneven lines
 def test_parse_data_uneven():
     # SETUP
     # EXERCISE
     # VERIFY
     # TEARDOWN
     return
-#
-# 
-# 
+
 # 
 #  ...
 
 '''Test get_similarity_score'''
-# Test empty strings
-# 
-#  ...
+# Test both lists empty
+def test_get_similarity_score_both_empty():
+    # SETUP
+    list1 = []
+    list2 = []
+    result = 99
+
+    # EXERCISE
+    result = get_similarity_score(list1, list2)
+
+    # VERIFY
+    assert list1 == []
+    assert list2 == []
+    assert result == 0      # 0 * 0 = 0
+
+    # TEARDOWN
+
+# Test left list empty
+def test_get_similarity_score_left_empty():
+    # SETUP
+    list1 = []
+    list2 = setup_standard_list()
+    result = 99
+
+    # EXERCISE
+    result = get_similarity_score(list1, list2)
+
+    # VERIFY
+    assert list1 == []
+    assert_standard_list(list2)
+    assert result == 0      # 0 * 0 = 0
+
+    # TEARDOWN
+
+
+# Test right list empty
+def test_get_similarity_score_right_empty():
+    # SETUP
+    list1 = setup_standard_list()
+    list2 = []
+    result = 99
+
+    # EXERCISE
+    result = get_similarity_score(list1, list2)
+
+    # VERIFY
+    assert_standard_list(list1)
+    assert list2 == []
+    assert result == 0      # 0 * 0 = 0
+
+    # TEARDOWN
+
+# Test one small item one occurance
+def test_get_similarity_score_one_to_one():
+    # SETUP
+    list1 = [1]
+    list2 = setup_standard_list()
+    result = 99
+
+    # EXERCISE
+    result = get_similarity_score(list1, list2)
+
+    # VERIFY
+    assert list1 == [1]
+    assert_standard_list(list2)
+    assert result == 1      # 1 * 1 = 1
+
+    # TEARDOWN
+
+# Test one small item many occurances
+def test_get_similarity_score_one_to_many():
+    # SETUP
+    list1 = [1]
+    list2 = [1, 1, 1, 1, 1]
+    result = 99
+
+    # EXERCISE
+    result = get_similarity_score(list1, list2)
+
+    # VERIFY
+    assert list1 == [1]
+    assert list2 == [1, 1, 1, 1, 1]
+    assert result == 5      # 1 * 5 = 5
+
+# Test many small items one occurance each
+def test_get_similarity_score_many_to_one():
+    # SETUP
+    # EXERCISE
+    # VERIFY
+    # TEARDOWN
+    return
+
+# Test many small items many occurances each 
+def test_get_similarity_score_many_to_many():
+    # SETUP
+    # EXERCISE
+    # VERIFY
+    # TEARDOWN
+    return
 
 '''Test get_total_difference'''
 # Test empty strings
